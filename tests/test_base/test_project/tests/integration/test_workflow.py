@@ -1,6 +1,6 @@
 import unittest
-from src.main import hello_world
-from src.calculator import Calculator
+from tests.test_base.test_project.src.main import hello_world
+from tests.test_base.test_project.src.calculator import Calculator
 
 class TestIntegration(unittest.TestCase):
     

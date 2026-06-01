@@ -1,5 +1,5 @@
 import unittest
-from src.models.user import User
+from tests.test_base.test_project.src.models.user import User
 
 class TestUser(unittest.TestCase):
     

@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "local_path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/docs",
+    "cloud_path": "app:/test_project/docs",
+    "cache_version": "1.0"
+  },
+  "files": {
+    "tutorials/quickstart.md": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/docs/tutorials/quickstart.md",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "0ef56d2de531aede5afa1ff37317cece",
+      "type": "file",
+      "size": 499
+    },
+    "9c92f42551a911f0bad50e5d09438c79_1.jpeg": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/docs/9c92f42551a911f0bad50e5d09438c79_1.jpeg",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "e6d12289215cfb0b0820f5c386b4c099",
+      "type": "file",
+      "size": 453462
+    },
+    ".syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/docs/.syncignore",
+      "modified": "2026-06-01T15:01:28.495373",
+      "md5": "55a27c08f6dcee64687b243d4ca9ac69",
+      "type": "file",
+      "size": 5
+    },
+    "api.md": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/docs/api.md",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "374f0fbbf7d0781a0affe248591cd4aa",
+      "type": "file",
+      "size": 358
+    }
+  },
+  "dirs": {
+    "tutorials": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/docs/tutorials",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    }
+  },
+  "statistics": {
+    "total_files": 4,
+    "total_directories": 1,
+    "total_size": 454324
+  }
+}

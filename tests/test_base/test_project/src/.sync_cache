@@ -1,0 +1,65 @@
+{
+  "project_info": {
+    "local_path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/src",
+    "cloud_path": "app:/test_project/src",
+    "cache_version": "1.0"
+  },
+  "files": {
+    "main.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/src/main.py",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "6fea67d790dabae20404bc0e642c97c0",
+      "type": "file",
+      "size": 177
+    },
+    "calculator.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/src/calculator.py",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "2e802437764b66437b1590f5a80a8f91",
+      "type": "file",
+      "size": 229
+    },
+    ".syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/src/.syncignore",
+      "modified": "2026-06-01T15:01:34.565605",
+      "md5": "55a27c08f6dcee64687b243d4ca9ac69",
+      "type": "file",
+      "size": 5
+    },
+    "utils/helpers.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/src/utils/helpers.py",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "69d529f7142280f9f476925810217650",
+      "type": "file",
+      "size": 250
+    },
+    "models/user.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/src/models/user.py",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "ee6ee13055b60db91f2c5f48985715ca",
+      "type": "file",
+      "size": 319
+    }
+  },
+  "dirs": {
+    "utils": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/src/utils",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "models": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/src/models",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    }
+  },
+  "statistics": {
+    "total_files": 5,
+    "total_directories": 2,
+    "total_size": 980
+  }
+}
