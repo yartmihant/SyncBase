@@ -1,0 +1,16 @@
+{
+  "name": "test-project",
+  "version": "1.0.0",
+  "description": "Тестовый проект для синхронизации",
+  "main": "src/main.py",
+  "scripts": {
+    "test": "python -m pytest tests/",
+    "start": "python src/main.py"
+  },
+  "dependencies": {
+    "requests": "^2.28.0"
+  },
+  "devDependencies": {
+    "pytest": "^7.0.0"
+  }
+}

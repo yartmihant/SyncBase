@@ -504,4 +504,4 @@ class YandexDiskClient:
 if __name__ == "__main__":
     # main() 
     # Это тестовый токен, не используйте его в продакшене
-    client = YandexDiskClient("y0__xCPzsuMAhiMzDkgs6fAixTU6apwTiR-C-v-SMjl-OEEJZkDpw")
+    client = YandexDiskClient("<YANDEX_DISK_TOKEN>")

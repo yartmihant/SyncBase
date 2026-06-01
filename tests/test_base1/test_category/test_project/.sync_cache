@@ -1,0 +1,324 @@
+{
+  "project_info": {
+    "local_path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project",
+    "cloud_path": "app:/test_category/test_project",
+    "cache_version": "1.0"
+  },
+  "files": {
+    "test2/test3/testfile": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/test2/test3/testfile",
+      "modified": "2025-07-31T20:18:47.328374",
+      "md5": "5d41402abc4b2a76b9719d911017c592",
+      "type": "file",
+      "size": 5
+    },
+    "test2/.syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/test2/.syncignore",
+      "modified": "2026-06-01T15:01:39.980812",
+      "md5": "55a27c08f6dcee64687b243d4ca9ac69",
+      "type": "file",
+      "size": 5
+    },
+    "test2/.sync_cache": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/test2/.sync_cache",
+      "modified": "2026-06-01T15:01:39.982812",
+      "md5": "1dfdd533bdbb6f91bdaf52c03abfadfd",
+      "type": "file",
+      "size": 1056
+    },
+    "me2.jpg": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/me2.jpg",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "d069e2b3efb014704986a6840453bf06",
+      "type": "file",
+      "size": 656707
+    },
+    "assets/images/logo.png": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/assets/images/logo.png",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "type": "file",
+      "size": 0
+    },
+    "assets/images/banner.jpg": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/assets/images/banner.jpg",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "type": "file",
+      "size": 0
+    },
+    "assets/images/icon.svg": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/assets/images/icon.svg",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "type": "file",
+      "size": 0
+    },
+    "assets/.syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/assets/.syncignore",
+      "modified": "2026-06-01T15:01:19.369026",
+      "md5": "55a27c08f6dcee64687b243d4ca9ac69",
+      "type": "file",
+      "size": 5
+    },
+    "assets/.sync_cache": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/assets/.sync_cache",
+      "modified": "2026-06-01T15:01:19.373027",
+      "md5": "5d84b97401e28a1de62e6eee3b5bd87c",
+      "type": "file",
+      "size": 2295
+    },
+    "assets/data.csv": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/assets/data.csv",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "e5a1dd0e1e1831085b84aeae3836a088",
+      "type": "file",
+      "size": 211
+    },
+    "assets/css/style.css": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/assets/css/style.css",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "aab9c1b4b29db1e8f9f17ddcda0b39f9",
+      "type": "file",
+      "size": 327
+    },
+    ".syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/.syncignore",
+      "modified": "2025-07-31T20:15:57.044749",
+      "md5": "4857e7bec78a2c7b403bcea3536ec8d1",
+      "type": "file",
+      "size": 257
+    },
+    "src/main.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/src/main.py",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "6fea67d790dabae20404bc0e642c97c0",
+      "type": "file",
+      "size": 177
+    },
+    "src/calculator.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/src/calculator.py",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "2e802437764b66437b1590f5a80a8f91",
+      "type": "file",
+      "size": 229
+    },
+    "src/.syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/src/.syncignore",
+      "modified": "2026-06-01T15:01:34.565605",
+      "md5": "55a27c08f6dcee64687b243d4ca9ac69",
+      "type": "file",
+      "size": 5
+    },
+    "src/.sync_cache": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/src/.sync_cache",
+      "modified": "2026-06-01T15:01:34.571605",
+      "md5": "fbb3137b77210b4bac63fb67a7db5093",
+      "type": "file",
+      "size": 2008
+    },
+    "src/utils/helpers.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/src/utils/helpers.py",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "69d529f7142280f9f476925810217650",
+      "type": "file",
+      "size": 250
+    },
+    "src/models/user.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/src/models/user.py",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "ee6ee13055b60db91f2c5f48985715ca",
+      "type": "file",
+      "size": 319
+    },
+    "docs/tutorials/quickstart.md": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/docs/tutorials/quickstart.md",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "0ef56d2de531aede5afa1ff37317cece",
+      "type": "file",
+      "size": 499
+    },
+    "docs/9c92f42551a911f0bad50e5d09438c79_1.jpeg": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/docs/9c92f42551a911f0bad50e5d09438c79_1.jpeg",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "e6d12289215cfb0b0820f5c386b4c099",
+      "type": "file",
+      "size": 453462
+    },
+    "docs/.syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/docs/.syncignore",
+      "modified": "2026-06-01T15:01:28.495373",
+      "md5": "55a27c08f6dcee64687b243d4ca9ac69",
+      "type": "file",
+      "size": 5
+    },
+    "docs/api.md": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/docs/api.md",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "374f0fbbf7d0781a0affe248591cd4aa",
+      "type": "file",
+      "size": 358
+    },
+    "docs/.sync_cache": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/docs/.sync_cache",
+      "modified": "2026-06-01T15:01:28.501373",
+      "md5": "a49a14ee616d1e4ec9f0551b67058c7a",
+      "type": "file",
+      "size": 1626
+    },
+    ".sync_cache": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/.sync_cache",
+      "modified": "2026-06-01T17:31:05.949984",
+      "md5": "eb71a8401c44776f8696fef8cbcef3a2",
+      "type": "file",
+      "size": 11736
+    },
+    "package.json": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/package.json",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "44a6fba8c8634a1726579c07d485782b",
+      "type": "file",
+      "size": 355
+    },
+    "tests/unit/test_user.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/tests/unit/test_user.py",
+      "modified": "2026-06-01T14:25:46.178593",
+      "md5": "e491235de99ea793fcd3515141d7b934",
+      "type": "file",
+      "size": 484
+    },
+    "tests/integration/test_workflow.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/tests/integration/test_workflow.py",
+      "modified": "2026-06-01T14:25:47.250579",
+      "md5": "f4d6050d1bc2dc88b3750f7213e6f72c",
+      "type": "file",
+      "size": 441
+    },
+    "tests/.syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/tests/.syncignore",
+      "modified": "2026-06-01T15:01:44.371981",
+      "md5": "55a27c08f6dcee64687b243d4ca9ac69",
+      "type": "file",
+      "size": 5
+    },
+    "tests/.sync_cache": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/tests/.sync_cache",
+      "modified": "2026-06-01T15:01:44.373981",
+      "md5": "18e555b111a8f3a743e3b81f8bdaf9a2",
+      "type": "file",
+      "size": 1849
+    },
+    "tests/test_calculator.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/tests/test_calculator.py",
+      "modified": "2026-06-01T14:25:47.976570",
+      "md5": "b18f88702e0178e1e679c22202689402",
+      "type": "file",
+      "size": 346
+    },
+    "README.md": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/README.md",
+      "modified": "2026-06-01T17:34:24.519983",
+      "md5": "376cf915f0289d3cf6308c44d47a94dd",
+      "type": "file",
+      "size": 251
+    }
+  },
+  "dirs": {
+    "test2": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/test2",
+      "modified": "2026-06-01T15:01:39.982812",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "test2/test3": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/test2/test3",
+      "modified": "2025-07-31T18:48:39.170134",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "assets": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/assets",
+      "modified": "2026-06-01T15:01:19.373027",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "assets/images": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/assets/images",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "assets/css": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/assets/css",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "src": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/src",
+      "modified": "2026-06-01T15:01:34.570605",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "src/utils": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/src/utils",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "src/models": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/src/models",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "docs": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/docs",
+      "modified": "2026-06-01T15:01:28.501373",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "docs/tutorials": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/docs/tutorials",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "tests": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/tests",
+      "modified": "2026-06-01T15:01:44.372981",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "tests/unit": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/tests/unit",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "tests/integration": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_category/test_project/tests/integration",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    }
+  },
+  "statistics": {
+    "total_files": 31,
+    "total_directories": 13,
+    "total_size": 1135273
+  }
+}

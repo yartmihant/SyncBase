@@ -1,0 +1,2 @@
+[console_scripts]
+syncbase = syncbase.cli:main

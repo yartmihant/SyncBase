@@ -1,0 +1,37 @@
+{
+  "project_info": {
+    "local_path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/test2",
+    "cloud_path": "app:/test_project/test2",
+    "cache_version": "1.0"
+  },
+  "files": {
+    "test3/testfile": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/test2/test3/testfile",
+      "modified": "2025-07-31T20:18:47.328374",
+      "md5": "5d41402abc4b2a76b9719d911017c592",
+      "type": "file",
+      "size": 5
+    },
+    ".syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/test2/.syncignore",
+      "modified": "2026-06-01T15:01:39.980812",
+      "md5": "55a27c08f6dcee64687b243d4ca9ac69",
+      "type": "file",
+      "size": 5
+    }
+  },
+  "dirs": {
+    "test3": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/test2/test3",
+      "modified": "2025-07-31T18:48:39.170134",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    }
+  },
+  "statistics": {
+    "total_files": 2,
+    "total_directories": 1,
+    "total_size": 10
+  }
+}

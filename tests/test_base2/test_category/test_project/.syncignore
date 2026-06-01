@@ -1,0 +1,18 @@
+# Игнорируемые файлы и папки для синхронизации
+.sync_state.json
+
+*.log
+*.tmp
+__pycache__/
+.env
+.git/
+node_modules/
+*.pyc
+
+# Временные файлы
+temp/
+tmp/
+
+# Системные файлы
+.DS_Store
+Thumbs.db

@@ -1,0 +1,58 @@
+{
+  "project_info": {
+    "local_path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/tests",
+    "cloud_path": "app:/test_project/tests",
+    "cache_version": "1.0"
+  },
+  "files": {
+    "unit/test_user.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/tests/unit/test_user.py",
+      "modified": "2026-06-01T14:25:46.178593",
+      "md5": "e491235de99ea793fcd3515141d7b934",
+      "type": "file",
+      "size": 484
+    },
+    "integration/test_workflow.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/tests/integration/test_workflow.py",
+      "modified": "2026-06-01T14:25:47.250579",
+      "md5": "f4d6050d1bc2dc88b3750f7213e6f72c",
+      "type": "file",
+      "size": 441
+    },
+    ".syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/tests/.syncignore",
+      "modified": "2026-06-01T15:01:44.371981",
+      "md5": "55a27c08f6dcee64687b243d4ca9ac69",
+      "type": "file",
+      "size": 5
+    },
+    "test_calculator.py": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/tests/test_calculator.py",
+      "modified": "2026-06-01T14:25:47.976570",
+      "md5": "b18f88702e0178e1e679c22202689402",
+      "type": "file",
+      "size": 346
+    }
+  },
+  "dirs": {
+    "unit": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/tests/unit",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "integration": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/tests/integration",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    }
+  },
+  "statistics": {
+    "total_files": 4,
+    "total_directories": 2,
+    "total_size": 1276
+  }
+}

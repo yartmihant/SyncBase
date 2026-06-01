@@ -1,0 +1,72 @@
+{
+  "project_info": {
+    "local_path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/assets",
+    "cloud_path": "app:/test_project/assets",
+    "cache_version": "1.0"
+  },
+  "files": {
+    "images/logo.png": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/assets/images/logo.png",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "type": "file",
+      "size": 0
+    },
+    "images/banner.jpg": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/assets/images/banner.jpg",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "type": "file",
+      "size": 0
+    },
+    "images/icon.svg": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/assets/images/icon.svg",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "type": "file",
+      "size": 0
+    },
+    ".syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/assets/.syncignore",
+      "modified": "2026-06-01T15:01:19.369026",
+      "md5": "55a27c08f6dcee64687b243d4ca9ac69",
+      "type": "file",
+      "size": 5
+    },
+    "data.csv": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/assets/data.csv",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "e5a1dd0e1e1831085b84aeae3836a088",
+      "type": "file",
+      "size": 211
+    },
+    "css/style.css": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/assets/css/style.css",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "aab9c1b4b29db1e8f9f17ddcda0b39f9",
+      "type": "file",
+      "size": 327
+    }
+  },
+  "dirs": {
+    "images": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/assets/images",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "css": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base/test_project/assets/css",
+      "modified": "2025-07-31T18:13:24",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    }
+  },
+  "statistics": {
+    "total_files": 6,
+    "total_directories": 2,
+    "total_size": 543
+  }
+}

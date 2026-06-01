@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "syncbase"
+dynamic = ["version"]
+description = "Синхронизатор локальных проектов с Яндекс.Диском (двухуровневое хранилище)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "antonov" }]
+keywords = ["yandex-disk", "sync", "backup", "projects"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Archiving :: Backup",
+]
+dependencies = [
+    "requests>=2.28",
+    "tqdm>=4.60",
+]
+
+[project.scripts]
+syncbase = "syncbase.cli:main"
+
+[project.urls]
+Repository = "https://github.com/antonov/syncbase"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { file = "VERSION" }
+
+[tool.setuptools.package-data]
+syncbase = [".syncignore.example"]
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: тесты, требующие сети и реального доступа к Яндекс.Диску",
+]
+
+[tool.mypy]
+python_version = "3.10"
+strict = false
+ignore_missing_imports = true

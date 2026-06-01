@@ -1,3 +1,26 @@
+Metadata-Version: 2.4
+Name: syncbase
+Version: 0.1.0
+Summary: Синхронизатор локальных проектов с Яндекс.Диском (двухуровневое хранилище)
+Author: antonov
+License: MIT
+Project-URL: Repository, https://github.com/antonov/syncbase
+Keywords: yandex-disk,sync,backup,projects
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: System :: Archiving :: Backup
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.28
+Requires-Dist: tqdm>=4.60
+
 ## SyncBase — синхронизатор проектов с Яндекс.Диском
 
 Консольный инструмент для двусторонней синхронизации локального древа проектов с облаком Яндекс.Диска. Поддерживает **двухуровневую структуру** хранилища: категории → проекты.
