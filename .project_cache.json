@@ -2,7 +2,7 @@
   "project_info": {
     "local_path": "/home/antonov/Base/Orgs/SyncBase",
     "cloud_path": "app:/Orgs/SyncBase",
-    "last_updated": "2025-08-12T19:34:40.750060",
+    "last_updated": "2025-08-25T17:54:37.681595",
     "cache_version": "1.0"
   },
   "files": {
@@ -22,8 +22,8 @@
     },
     "VERSION": {
       "path": "/home/antonov/Base/Orgs/SyncBase/VERSION",
-      "modified": "2025-08-12T18:15:23.475958",
-      "md5": "647a38b2a47068535a98658ef0f7f6fa",
+      "modified": "2025-08-12T19:58:45.072994",
+      "md5": "381a8e0848d959b278aa3793603bf75f",
       "type": "file",
       "size": 6
     },
@@ -43,10 +43,10 @@
     },
     ".project_cache.json": {
       "path": "/home/antonov/Base/Orgs/SyncBase/.project_cache.json",
-      "modified": "2025-08-08T20:34:43.492856",
-      "md5": "df1b9e1ead3405fc8486e661863ce569",
+      "modified": "2025-08-13T18:27:28.823458",
+      "md5": "905276b8eb5037851b39e4f644803f58",
       "type": "file",
-      "size": 12059
+      "size": 14377
     },
     ".env": {
       "path": "/home/antonov/Base/Orgs/SyncBase/.env",
@@ -292,6 +292,13 @@
       "md5": "d187de6ef6a49cdf4055ca2fc9a1a79c",
       "type": "file",
       "size": 4426
+    },
+    "README.md": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/README.md",
+      "modified": "2025-08-13T13:31:11.686785",
+      "md5": "62a11bc0b76a4cbec8329e4b62c3acf4",
+      "type": "file",
+      "size": 2487
     }
   },
   "dirs": {
@@ -402,8 +409,8 @@
     }
   },
   "statistics": {
-    "total_files": 41,
+    "total_files": 42,
     "total_directories": 15,
-    "total_size": 1271172
+    "total_size": 1275977
   }
 }
