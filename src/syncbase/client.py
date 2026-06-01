@@ -78,6 +78,8 @@ class YandexDiskClient:
             requests.exceptions.HTTPError,
         )
 
+        operation_type = "API" if is_api_call else "Upload/Download"
+
         for attempt in range(max_retries + 1):
             try:
                 if "timeout" not in kwargs:
@@ -86,11 +88,9 @@ class YandexDiskClient:
                 if is_api_call:
                     full_url = self.api_base + url
                     request_headers = self.headers
-                    operation_type = "API"
                 else:
                     full_url = url
                     request_headers = kwargs.pop("headers", {})
-                    operation_type = "Upload/Download"
 
                 response = requests.request(method, full_url, headers=request_headers, **kwargs)
 
@@ -203,13 +203,16 @@ class YandexDiskClient:
         cloud_path = self._normalize_path(cloud_path)
         params = {"path": cloud_path}
         response = self._make_request("PUT", "/", params=params)
+        if response is None:
+            print(f"❌ Не удалось создать папку: {cloud_path}")
+            return False
 
         if response.status_code == 201:
             print(f"📁 Папка создана: {cloud_path}")
             return True
         elif response.status_code == 409:
             if self.exists(cloud_path):
-                print(f"📁 Папка уже существует: {cloud_path}")
+                # print(f"📁 Папка уже существует: {cloud_path}")
                 return True
             elif create_parent:
                 return self.create_dir(cloud_path.parent) and self.create_dir(cloud_path, create_parent=False)

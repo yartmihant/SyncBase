@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "local_path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base2/test_category/test_project2",
+    "cloud_path": "app:/test_category/test_project2",
+    "cache_version": "1.0"
+  },
+  "files": {
+    "Папка/Ещё папка/Мамка/Дочка/Внучка.md": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base2/test_category/test_project2/Папка/Ещё папка/Мамка/Дочка/Внучка.md",
+      "modified": "2026-06-01T18:09:34.683975",
+      "md5": "dba87cf75e5e7d15f4a95755c51ba099",
+      "type": "file",
+      "size": 35
+    },
+    "report.pdf": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base2/test_category/test_project2/report.pdf",
+      "modified": "2026-05-26T14:19:10.591617",
+      "md5": "9fce6fed5088e74691f64e42ddc775a5",
+      "type": "file",
+      "size": 5182937
+    },
+    ".syncignore": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base2/test_category/test_project2/.syncignore",
+      "modified": "2026-06-01T18:00:04.944977",
+      "md5": "55a27c08f6dcee64687b243d4ca9ac69",
+      "type": "file",
+      "size": 5
+    },
+    ".sync_cache": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base2/test_category/test_project2/.sync_cache",
+      "modified": "2026-06-01T18:09:34.751975",
+      "md5": "257a6e63910af2fb688de0ba3c9a8af8",
+      "type": "file",
+      "size": 2976
+    },
+    "Очень важный документ1": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base2/test_category/test_project2/Очень важный документ1",
+      "modified": "2026-06-01T18:06:28.290976",
+      "md5": "2b90ea27ea470059a95a3fc9f93fdc16",
+      "type": "file",
+      "size": 89
+    },
+    "cat.jpeg": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base2/test_category/test_project2/cat.jpeg",
+      "modified": "2025-06-25T12:49:23.678963",
+      "md5": "e6d12289215cfb0b0820f5c386b4c099",
+      "type": "file",
+      "size": 453462
+    }
+  },
+  "dirs": {
+    "Папка": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base2/test_category/test_project2/Папка",
+      "modified": "2026-06-01T18:09:33.047975",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "Папка/Ещё папка": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base2/test_category/test_project2/Папка/Ещё папка",
+      "modified": "2026-06-01T18:09:33.048975",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "Папка/Ещё папка/Мамка": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base2/test_category/test_project2/Папка/Ещё папка/Мамка",
+      "modified": "2026-06-01T18:09:33.048975",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    },
+    "Папка/Ещё папка/Мамка/Дочка": {
+      "path": "/home/antonov/Base/Orgs/SyncBase/tests/test_base2/test_category/test_project2/Папка/Ещё папка/Мамка/Дочка",
+      "modified": "2026-06-01T18:09:34.683975",
+      "md5": "",
+      "type": "dir",
+      "size": 0
+    }
+  },
+  "statistics": {
+    "total_files": 6,
+    "total_directories": 4,
+    "total_size": 5639504
+  }
+}
