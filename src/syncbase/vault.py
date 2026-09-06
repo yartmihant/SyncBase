@@ -13,6 +13,8 @@ from .item import SyncItem
 from .client import YandexDiskClient
 
 THREADS_COUNT = 16
+LOCAL_ONLY_FILES = {".syncbase", ".sync_cache"}
+SYSTEM_FILES = LOCAL_ONLY_FILES | {".syncignore"}
 
 
 def _to_timestamp(dt: datetime) -> float:
@@ -90,31 +92,27 @@ class SyncIgnore:
         return ignored
 
 
-class SyncProject:
-    """Класс для синхронизации отдельного проекта."""
+class SyncVault:
+    """Одноуровневый вольт, зеркалируемый в корень ``app:/``."""
 
     syncignore: SyncIgnore
     yandex_disk_client: YandexDiskClient
     sync_items: Dict[str, SyncItem]
     items_need_for_update: Dict[str, Dict[str, List[SyncItem]]]
 
-    def __init__(
-        self,
-        base_path: Path | str,
-        category_name: str,
-        project_name: str,
-        token: str,
-    ):
-        relative_path = os.path.join(category_name, project_name)
-
+    def __init__(self, vault_path: Path | str, token: str):
         self.yandex_disk_client = YandexDiskClient(token)
         self.syncignore = SyncIgnore()
+
+        self.local_path = Path(vault_path)
+        self.cloud_path = Path("app:")
+        self.name = self.local_path.name
+
+        self._reset_scan_state()
+
+    def _reset_scan_state(self) -> None:
+        """Очистить результаты предыдущего прохода перед новым сканированием."""
         self.sync_items = {}
-
-        self.local_path = Path(base_path) / relative_path
-        self.cloud_path = Path("app:") / relative_path
-        self.relative_path = relative_path
-
         self.items_need_for_update = {
             "empty": {"empty": [], "file": [], "dir": []},
             "file": {"empty": [], "file": [], "dir": []},
@@ -126,10 +124,10 @@ class SyncProject:
         return self.yandex_disk_client.token
 
     def __str__(self):
-        return f"<{self.relative_path}>"
+        return f"<{self.name}>"
 
     def __repr__(self):
-        return f"<SyncProject {self.relative_path}>"
+        return f"<SyncVault {self.name}>"
 
     def create_item(self, relative_path: str) -> SyncItem:
         if relative_path:
@@ -217,6 +215,8 @@ class SyncProject:
             relative_path = (
                 os.path.join(current_path, item.name) if current_path else item.name
             )
+            if item.name in LOCAL_ONLY_FILES:
+                continue
             if self.syncignore.should_ignore(relative_path, item.is_dir()):
                 continue
 
@@ -243,6 +243,8 @@ class SyncProject:
             subfolders_found = []
             for item in items:
                 item_name = item["name"]
+                if item_name in LOCAL_ONLY_FILES:
+                    continue
                 relative_path: str = (
                     os.path.join(folder_path, item_name) if folder_path else item_name
                 )
@@ -317,10 +319,10 @@ class SyncProject:
                 cache_data_dirs[relative_path] = sync_item.local_state.to_dict()
 
         cache_data = {
-            "project_info": {
+            "vault_info": {
                 "local_path": str(self.local_path),
                 "cloud_path": str(self.cloud_path),
-                "cache_version": "1.0",
+                "cache_version": "2.0",
             },
             "files": cache_data_files,
             "dirs": cache_data_dirs,
@@ -346,7 +348,7 @@ class SyncProject:
             with open(cache_file, "r", encoding="utf-8") as f:
                 return json.load(f)
         except Exception as e:
-            print(f"⚠️ Ошибка чтения кэша проекта {self.cloud_path}: {e}")
+            print(f"⚠️ Ошибка чтения кэша вольта {self.local_path}: {e}")
             return None
 
     # ------------------------------------------------------------------ #
@@ -354,11 +356,11 @@ class SyncProject:
     # ------------------------------------------------------------------ #
 
     def show_status(self):
-        print(f"\n📊 Статус проекта {str(self)}...")
+        print(f"\n📊 Статус вольта {str(self)}...")
 
         cache = self.get_cache()
         if not cache:
-            print("❌ Кэш проекта отсутствует. Сохраните проект на облако для создания кэша")
+            print("❌ Кэш вольта отсутствует. Выполните 'syncbase save all' для его создания")
             return
 
         self.local_scan()
@@ -387,7 +389,7 @@ class SyncProject:
                 changed_files.add(relative_path)
 
         if not any([new_files, removed_files, new_dirs, removed_dirs, changed_files]):
-            print("✅ Проект синхронизирован — изменений не обнаружено")
+            print("✅ Вольт синхронизирован — изменений не обнаружено")
             return
 
         print("🔄 Обнаружены изменения:")
@@ -417,7 +419,7 @@ class SyncProject:
             for file_path in sorted(changed_files):
                 print(f"   ~ {file_path} ({current_files[file_path]['size']} B)")
 
-        print("\n💡 Сохраните проект на облако для синхронизации изменений")
+        print("\n💡 Выполните 'syncbase save all' для синхронизации изменений")
 
     # ------------------------------------------------------------------ #
     #  Защита от перезаписи более новых файлов                            #
@@ -439,17 +441,15 @@ class SyncProject:
 
         2. Удаление уникальных данных, существующих только с одной стороны:
              - load: файл есть только локально — будет УДАЛЁН (например, новый
-               файл, добавленный в проект перед ошибочным `load`);
+               файл, добавленный в вольт перед ошибочным `load`);
              - save: файл есть только в облаке — будет УДАЛЁН с диска.
 
         Returns:
             True  — безопасно продолжать (или force=True при найденных проблемах).
             False — обнаружена потенциальная потеря данных и force=False.
         """
-        _SYSTEM_FILES = {".syncignore", ".sync_cache"}
-
         def _is_system(item: SyncItem) -> bool:
-            return item.local_path.name in _SYSTEM_FILES
+            return item.local_path.name in SYSTEM_FILES
 
         overwrites: List[SyncItem] = []
         deletions: List[SyncItem] = []
@@ -521,7 +521,7 @@ class SyncProject:
 
         print("❌ Операция заблокирована.")
         print(f"   Для принудительной операции используйте флаг -f / --force.")
-        print(f"   Пример: syncbase {direction} -f")
+        print(f"   Пример: syncbase {direction} all -f")
         return False
 
     # ------------------------------------------------------------------ #
@@ -529,7 +529,8 @@ class SyncProject:
     # ------------------------------------------------------------------ #
 
     def sync_load(self, force: bool = False):
-        """Загрузить состояние проекта с облака в локальную папку."""
+        """Загрузить состояние вольта из облака в локальную папку."""
+        self._reset_scan_state()
         self._force_overwrite_ids: set = set()
         self.local_scan()
         self.cloud_scan()
@@ -569,10 +570,17 @@ class SyncProject:
             *self.items_need_for_update["file"]["file"],
         )
 
+        # Кэш локальный и намеренно не загружается из облака. Формируем его по
+        # уже восстановленному дереву, чтобы `status all` сразу был полезен.
+        self._reset_scan_state()
+        self.local_scan()
+        self.set_cache()
+
     def sync_save(self, force: bool = False):
-        """Сохранить локальный проект в облако."""
+        """Сохранить локальный вольт в облако."""
+        self._reset_scan_state()
         self._force_overwrite_ids: set = set()
-        print(f"⬆️  Начинаем сохранение проекта {str(self)}...")
+        print(f"⬆️  Начинаем сохранение вольта {str(self)}...")
 
         self.local_scan()
         self.set_cache()

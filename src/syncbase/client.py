@@ -145,6 +145,55 @@ class YandexDiskClient:
         jitter = random.uniform(0.1, 0.5) * base_delay
         return base_delay + jitter
 
+    def _upload_file_with_retry(
+        self,
+        upload_url: str,
+        local_path: str | Path,
+        max_retries: int = 3,
+        timeout: int = 120,
+    ):
+        """Upload a file as a raw byte stream, retrying transient failures.
+
+        Yandex Disk upload URLs accept the file body directly.  Sending a
+        ``files={...}`` argument makes ``requests`` wrap the body in
+        multipart/form-data and corrupts small uploads.
+        """
+        local_path = self._normalize_path(local_path)
+
+        for attempt in range(max_retries + 1):
+            try:
+                with local_path.open("rb") as file_obj:
+                    response = requests.put(
+                        upload_url,
+                        data=file_obj,
+                        timeout=timeout,
+                        headers={"Content-Type": "application/octet-stream"},
+                    )
+
+                if response.status_code == 429 and attempt < max_retries:
+                    try:
+                        retry_after = int(response.headers.get("Retry-After", "1"))
+                    except (TypeError, ValueError):
+                        retry_after = 1
+                    time.sleep(min(retry_after, 60))
+                    continue
+
+                if response.status_code >= 500 and attempt < max_retries:
+                    time.sleep(self._calculate_backoff_time(attempt))
+                    continue
+
+                return response
+            except (
+                requests.exceptions.ConnectionError,
+                requests.exceptions.Timeout,
+                requests.exceptions.ChunkedEncodingError,
+            ):
+                if attempt >= max_retries:
+                    return None
+                time.sleep(self._calculate_backoff_time(attempt))
+
+        return None
+
     def list(self, cloud_path: str | Path, limit: int = 10000):
         """Получить полный список файлов и папок с автоматической пагинацией."""
         cloud_path = self._normalize_path(cloud_path)
@@ -374,12 +423,13 @@ class YandexDiskClient:
                             headers={"Content-Type": "application/octet-stream"},
                         )
                 else:
-                    response = requests.put(upload_url, files={"file": f}, timeout=120)
+                    response = self._upload_file_with_retry(upload_url, local_path)
 
-            if response.status_code in (201, 202):
+            if response is not None and response.status_code in (201, 202):
                 return True
             else:
-                print(f"❌ Ошибка загрузки: {response.status_code}")
+                status = response.status_code if response is not None else "network error"
+                print(f"❌ Ошибка загрузки: {status}")
                 return False
 
         except Exception as e:

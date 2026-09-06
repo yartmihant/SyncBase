@@ -1,81 +1,104 @@
 #!/usr/bin/env python3
-"""Точка входа CLI для syncbase."""
+"""Точка входа одноуровневой CLI для SyncBase."""
 
-import os
 import sys
 
-from .base import SyncBase
-from .resolver import find_storage, STORAGE_KEY_FILE
+from .resolver import find_vault, VAULT_KEY_FILE
+from .vault import SyncVault
 
 
 def main():
     """Главная функция CLI."""
-    result = find_storage()
+    result = find_vault()
 
     if result is None:
         print(
-            f"❌ Не найден файл хранилища '{STORAGE_KEY_FILE}'.\n"
+            f"❌ Не найден ключ вольта '{VAULT_KEY_FILE}'.\n"
             f"\n"
-            f"   Создайте файл '{STORAGE_KEY_FILE}' в корневой папке хранилища:\n"
+            f"   Создайте файл '{VAULT_KEY_FILE}' в корневой папке вольта:\n"
             f"\n"
             f"       echo 'YANDEX_DISK_TOKEN=<ваш_oauth_токен>' > .syncbase\n"
             f"\n"
-            f"   Папка, содержащая '{STORAGE_KEY_FILE}', станет корнем хранилища.\n"
+            f"   Папка, содержащая '{VAULT_KEY_FILE}', станет корнем вольта.\n"
             f"   Подробнее: см. раздел 'Настройка' в README.md"
         )
         sys.exit(1)
 
-    base_path, token = result
-
-    sync_base = SyncBase(base_path, token)
-    cwd_path = os.getcwd()
+    vault_path, token = result
+    vault = SyncVault(vault_path, token)
 
     if len(sys.argv) < 2:
-        sync_base._print_usage()
+        _print_usage()
         sys.exit(1)
 
     command = sys.argv[1].lower()
     raw_args = sys.argv[2:]
 
-    # Парсим флаг -f / --force (только для save и load)
+    # Флаг допустим только для save/load; позиция после команды не важна.
     force = "-f" in raw_args or "--force" in raw_args
     args = [a for a in raw_args if a not in ("-f", "--force")]
 
     if command == "list":
-        sync_base.cmd_list()
+        if args or force:
+            _print_usage("list")
+            sys.exit(1)
+        _print_vault(vault)
         sys.exit(0)
 
     if command not in {"status", "save", "load"}:
         print(f"❌ Неизвестная команда: {command}")
-        sync_base._print_usage()
+        _print_usage()
         sys.exit(1)
 
-    ctx = sync_base._resolve_context(cwd_path)
-    targets = sync_base._select_targets(command, ctx, args)
+    if args != ["all"] or (force and command == "status"):
+        _print_usage(command)
+        sys.exit(1)
 
-    if not targets:
-        print("⚠️ Не найдено ни одного проекта для обработки.")
-        sys.exit(0)
+    if command == "status":
+        vault.show_status()
+    elif command == "save":
+        vault.sync_save(force=force)
+    else:
+        vault.sync_load(force=force)
 
-    for category, project in targets:
-        if command == "save":
-            local_exists = (sync_base.base_path / category / project).is_dir()
-            if not local_exists:
-                print(
-                    f"⚠️ Пропуск save для {category}/{project}:"
-                    f" локального проекта нет. Используйте 'load'."
-                )
-                continue
-        if command == "status":
-            local_exists = (sync_base.base_path / category / project).is_dir()
-            if not local_exists:
-                print(
-                    f"📊 {category}/{project}: локального проекта нет."
-                    f" 💡 Выполните 'load' для восстановления."
-                )
-                continue
 
-        sync_base._run_for_project(command, category, project, force=force)
+def _print_vault(vault: SyncVault) -> None:
+    """Показать одноуровневое содержимое локального и облачного корней."""
+    local_items = {
+        item.name
+        for item in vault.local_path.iterdir()
+        if item.name not in {".syncbase", ".sync_cache"}
+    }
+    cloud_items = {
+        item["name"]
+        for item in (vault.yandex_disk_client.list(vault.cloud_path) or [])
+        if item.get("name") not in {".syncbase", ".sync_cache"}
+    }
+
+    print(f"📦 Вольт: {vault.name}")
+    print(f"   локально: {vault.local_path}")
+    print("   облако: app:/")
+    for name in sorted(local_items | cloud_items):
+        marks = []
+        if name in local_items:
+            marks.append("local")
+        if name in cloud_items:
+            marks.append("cloud")
+        print(f"   - {name} [{'/'.join(marks)}]")
+
+
+def _print_usage(command: str | None = None) -> None:
+    if command:
+        print(f"❗ Неверные аргументы для команды '{command}'.")
+    print(
+        "Использование:\n"
+        "  syncbase list\n"
+        "  syncbase status all\n"
+        "  syncbase save   all [-f | --force]\n"
+        "  syncbase load   all [-f | --force]\n\n"
+        "Каждый .syncbase задаёт один вольт; категории и проекты не поддерживаются.\n"
+        "Флаг -f / --force разрешает потенциально опасную перезапись."
+    )
 
 
 if __name__ == "__main__":

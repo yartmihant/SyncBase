@@ -1,3 +1,0 @@
-# Зависимости для интеграционного теста sync_project.py
-python-dotenv>=0.19.0
-pathlib2>=2.3.0; python_version < "3.4" 

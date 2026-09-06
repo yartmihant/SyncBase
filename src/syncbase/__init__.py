@@ -1,18 +1,16 @@
-"""syncbase — синхронизатор локальных проектов с Яндекс.Диском."""
+"""syncbase — синхронизатор локального вольта с Яндекс.Диском."""
 
-from .base import SyncBase
-from .project import SyncProject, SyncIgnore
+from .vault import SyncVault, SyncIgnore
 from .item import SyncItem
 from .client import YandexDiskClient
-from .resolver import find_storage, STORAGE_KEY_FILE
+from .resolver import find_vault, VAULT_KEY_FILE
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __all__ = [
-    "SyncBase",
-    "SyncProject",
+    "SyncVault",
     "SyncIgnore",
     "SyncItem",
     "YandexDiskClient",
-    "find_storage",
-    "STORAGE_KEY_FILE",
+    "find_vault",
+    "VAULT_KEY_FILE",
 ]
