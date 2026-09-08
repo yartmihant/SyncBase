@@ -1,7 +1,43 @@
+# Начальные правила SyncBase. Этот файл можно редактировать для своего проекта.
+# Каталоги без указания пути исключаются на любой глубине.
+
+# Системы контроля версий
 .git/
+.hg/
+.svn/
+
+# Python: окружения и кэши
+.venv/
+venv/
+.tox/
+.nox/
 __pycache__/
+*.pyc
+*.pyo
 .pytest_cache/
 .mypy_cache/
+.ruff_cache/
+.hypothesis/
+.ipynb_checkpoints/
+
+# JavaScript: зависимости и кэши сборщиков
+node_modules/
+.npm/
+.pnpm-store/
+.next/
+.nuxt/
+.svelte-kit/
+.parcel-cache/
+.turbo/
+
+# Локальные настройки IDE
 .idea/
 .vscode/
-node_modules/
+
+# Служебные файлы ОС и временные файлы редакторов
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~

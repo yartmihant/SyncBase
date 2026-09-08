@@ -2,9 +2,11 @@
 """Точка входа одноуровневой CLI для SyncBase."""
 
 import sys
+from pathlib import Path
+from typing import cast
 
 from .resolver import find_vault, VAULT_KEY_FILE
-from .vault import SyncVault
+from .vault import Command, SyncVault
 
 
 def main():
@@ -31,60 +33,49 @@ def main():
         _print_usage()
         sys.exit(1)
 
-    command = sys.argv[1].lower()
+    command_name = sys.argv[1].lower()
     raw_args = sys.argv[2:]
 
     # Флаг допустим только для save/load; позиция после команды не важна.
     force = "-f" in raw_args or "--force" in raw_args
     args = [a for a in raw_args if a not in ("-f", "--force")]
 
-    if command == "list":
+    if command_name == "list":
         if args or force:
             _print_usage("list")
             sys.exit(1)
-        _print_vault(vault)
+        vault.show_projects()
         sys.exit(0)
 
-    if command not in {"status", "save", "load"}:
-        print(f"❌ Неизвестная команда: {command}")
+    if command_name not in {"status", "save", "load"}:
+        print(f"❌ Неизвестная команда: {command_name}")
         _print_usage()
         sys.exit(1)
 
-    if args != ["all"] or (force and command == "status"):
+    command = cast(Command, command_name)
+
+    if len(args) > 1 or (force and command == "status"):
         _print_usage(command)
         sys.exit(1)
 
-    if command == "status":
-        vault.show_status()
-    elif command == "save":
-        vault.sync_save(force=force)
-    else:
-        vault.sync_load(force=force)
-
-
-def _print_vault(vault: SyncVault) -> None:
-    """Показать одноуровневое содержимое локального и облачного корней."""
-    local_items = {
-        item.name
-        for item in vault.local_path.iterdir()
-        if item.name not in {".syncbase", ".sync_cache"}
-    }
-    cloud_items = {
-        item["name"]
-        for item in (vault.yandex_disk_client.list(vault.cloud_path) or [])
-        if item.get("name") not in {".syncbase", ".sync_cache"}
-    }
-
-    print(f"📦 Вольт: {vault.name}")
-    print(f"   локально: {vault.local_path}")
-    print("   облако: app:/")
-    for name in sorted(local_items | cloud_items):
-        marks = []
-        if name in local_items:
-            marks.append("local")
-        if name in cloud_items:
-            marks.append("cloud")
-        print(f"   - {name} [{'/'.join(marks)}]")
+    try:
+        if args:
+            selector = args[0]
+            if selector == "all":
+                vault.run_all(command, force=force)
+            else:
+                vault.run_project(command, selector, force=force)
+        else:
+            project_name = vault.resolve_project(Path.cwd())
+            if project_name is None:
+                print("❗ Команда без селектора должна запускаться из папки проекта.")
+                _print_usage(command)
+                sys.exit(1)
+            vault.run_project(command, project_name, force=force)
+    except ValueError as exc:
+        print(f"❌ {exc}")
+        _print_usage(command)
+        sys.exit(1)
 
 
 def _print_usage(command: str | None = None) -> None:
@@ -93,10 +84,11 @@ def _print_usage(command: str | None = None) -> None:
     print(
         "Использование:\n"
         "  syncbase list\n"
-        "  syncbase status all\n"
-        "  syncbase save   all [-f | --force]\n"
-        "  syncbase load   all [-f | --force]\n\n"
-        "Каждый .syncbase задаёт один вольт; категории и проекты не поддерживаются.\n"
+        "  syncbase status [all | <project>]\n"
+        "  syncbase save   [all | <project>] [-f | --force]\n"
+        "  syncbase load   [all | <project>] [-f | --force]\n\n"
+        "Без селектора status/save/load работают с проектом текущей папки.\n"
+        "Проекты находятся непосредственно в корне вольта; категорий нет.\n"
         "Флаг -f / --force разрешает потенциально опасную перезапись."
     )
 

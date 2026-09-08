@@ -4,6 +4,7 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 import requests
+import pytest
 
 from syncbase.client import YandexDiskClient
 
@@ -15,12 +16,6 @@ def response(status: int, payload: dict | None = None) -> Mock:
     if payload is not None:
         result.json.return_value = payload
     return result
-
-
-def test_legacy_import_uses_embedded_client():
-    from yandex_disk_client import YandexDiskClient as LegacyClient
-
-    assert LegacyClient is YandexDiskClient
 
 
 def test_init():
@@ -58,6 +53,32 @@ def test_list_paginates(mock_request):
         "one",
         "two",
     ]
+
+
+@pytest.mark.parametrize("status", [None, 401, 429, 500])
+def test_list_failure_does_not_look_like_empty_folder(status):
+    client = YandexDiskClient("token")
+    with patch.object(client, "_make_request", return_value=response(status) if status else None):
+        with pytest.raises(RuntimeError, match="Не удалось получить список"):
+            client.list("app:/Project")
+
+
+@pytest.mark.parametrize("status", [None, 404, 500])
+def test_list_failure_on_later_page_does_not_return_partial_tree(status):
+    client = YandexDiskClient("token")
+    pages = [
+        response(200, {"_embedded": {"items": [{"name": "one", "type": "file"}], "total": 2}}),
+        response(status) if status else None,
+    ]
+    with patch.object(client, "_make_request", side_effect=pages):
+        with pytest.raises(RuntimeError, match="Не удалось получить список"):
+            client.list("app:/Project", limit=1)
+
+
+def test_list_missing_project_is_empty():
+    client = YandexDiskClient("token")
+    with patch.object(client, "_make_request", return_value=response(404)):
+        assert client.list("app:/Project") == []
 
 
 @patch("syncbase.client.time.sleep")
@@ -101,6 +122,27 @@ def test_small_upload_uses_retry_helper(mock_request, mock_upload, _mock_move, t
 
     assert result is True
     mock_upload.assert_called_once_with("https://upload", source)
+
+
+@patch.object(YandexDiskClient, "remove", return_value=True)
+@patch.object(YandexDiskClient, "_upload_file_with_progress", return_value=False)
+def test_failed_upload_removes_temporary_cloud_file(
+    mock_upload,
+    mock_remove,
+    tmp_path: Path,
+):
+    source = tmp_path / "file.txt"
+    source.write_text("data", encoding="utf-8")
+
+    result = YandexDiskClient("token").upload(
+        source,
+        "app:/MyProject/file.txt",
+        create_parent=False,
+    )
+
+    assert result is False
+    mock_upload.assert_called_once()
+    mock_remove.assert_called_once_with("app:/MyProject/file.txt.tmp")
 
 
 @patch("syncbase.client.requests.request")

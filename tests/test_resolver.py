@@ -81,7 +81,7 @@ class TestFindVault:
         key_file = tmp_path / VAULT_KEY_FILE
         key_file.write_text(KEY_CONTENT)
 
-        sub = tmp_path / "category" / "project"
+        sub = tmp_path / "Project" / "src"
         sub.mkdir(parents=True)
 
         result = find_vault(sub)

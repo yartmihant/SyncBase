@@ -36,7 +36,6 @@ Repository = "https://github.com/yartmihant/SyncBase"
 
 [tool.setuptools]
 package-dir = { "" = "src" }
-py-modules = ["yandex_disk_client"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

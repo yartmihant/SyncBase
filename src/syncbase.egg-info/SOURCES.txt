@@ -1,13 +1,13 @@
 README.md
 VERSION
 pyproject.toml
-src/yandex_disk_client.py
 src/syncbase/.syncignore.example
 src/syncbase/__init__.py
 src/syncbase/__main__.py
 src/syncbase/cli.py
 src/syncbase/client.py
 src/syncbase/item.py
+src/syncbase/project.py
 src/syncbase/resolver.py
 src/syncbase/vault.py
 src/syncbase.egg-info/PKG-INFO
@@ -17,7 +17,10 @@ src/syncbase.egg-info/entry_points.txt
 src/syncbase.egg-info/requires.txt
 src/syncbase.egg-info/top_level.txt
 tests/test_cli.py
+tests/test_cloud_scan.py
+tests/test_incremental_index.py
 tests/test_overwrite_guard.py
 tests/test_path_structure.py
+tests/test_rename_detection.py
 tests/test_resolver.py
 tests/test_yandex_disk_client.py

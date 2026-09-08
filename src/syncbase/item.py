@@ -1,6 +1,7 @@
 from datetime import datetime
 import hashlib
 import os
+import stat as stat_module
 from pathlib import Path
 from typing import Literal, Optional
 import shutil
@@ -8,6 +9,19 @@ import shutil
 from .client import YandexDiskClient
 
 ItemType = Literal["file", "dir", "empty"]
+
+
+def _stat_signature(stat: os.stat_result) -> list[int]:
+    """Metadata used to invalidate a cached digest (never atime)."""
+    return [stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns, stat.st_dev, stat.st_ino]
+
+
+def _hash_local_file(path: Path) -> str:
+    md5 = hashlib.md5()
+    with open(path, "rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            md5.update(chunk)
+    return md5.hexdigest()
 
 
 class ItemState:
@@ -33,7 +47,7 @@ class ItemState:
             "size": self.size,
         }
 
-    def from_dict(self, data: dict):
+    def from_dict(self, data: Optional[dict]):
         if data:
             self.md5 = data.get("md5", self.md5)
             self.type = data.get("type", self.type)
@@ -107,6 +121,7 @@ class SyncItem:
         self.local_path = Path(local_path)
         self.cloud_path = Path(cloud_path)
         self.yandex_disk_client = YandexDiskClient(token)
+        self.local_signature: Optional[list[int]] = None
 
     def __str__(self):
         return f"SyncItem({self.local_state}, {self.cloud_state})"
@@ -114,29 +129,47 @@ class SyncItem:
     def __repr__(self):
         return f"SyncItem({self.local_state}, {self.cloud_state})"
 
-    def calc_local_state(self) -> ItemState:
-        self.local_state.type = (
-            "empty"
-            if not self.local_path.exists()
-            else "dir"
-            if self.local_path.is_dir()
-            else "file"
-        )
+    def calc_local_state(
+        self, cached: Optional[dict] = None, stat: Optional[os.stat_result] = None
+    ) -> ItemState:
+        self.local_signature = None
+        self.local_state.md5 = ""
+        self.local_state.size = 0
+        try:
+            if stat is None:
+                stat = self.local_path.stat()
+        except FileNotFoundError:
+            self.local_state.type = "empty"
+            return self.local_state
 
+        self.local_state.type = "dir" if stat_module.S_ISDIR(stat.st_mode) else "file"
         if self.local_state.type == "file":
-            md5 = hashlib.md5()
-            with open(self.local_path, "rb") as f:
-                for chunk in iter(lambda: f.read(4096), b""):
-                    md5.update(chunk)
-            self.local_state.md5 = md5.hexdigest()
-            stat = self.local_path.stat()
-            self.local_state.modified = datetime.fromtimestamp(stat.st_mtime)
+            signature = _stat_signature(stat)
+            digest = cached.get("md5") if isinstance(cached, dict) else None
+            if (
+                isinstance(cached, dict)
+                and cached.get("signature") == signature
+                and isinstance(digest, str)
+                and len(digest) == 32
+                and all(char in "0123456789abcdef" for char in digest)
+            ):
+                self.local_state.md5 = digest
+            else:
+                # Never associate a hash of changing content with newer metadata.
+                for _attempt in range(3):
+                    digest = _hash_local_file(self.local_path)
+                    after = self.local_path.stat()
+                    if _stat_signature(after) == signature:
+                        self.local_state.md5 = digest
+                        break
+                    stat = after
+                    signature = _stat_signature(stat)
+                else:
+                    raise RuntimeError(f"Файл изменяется во время индексации: {self.local_path}")
+            self.local_signature = signature
             self.local_state.size = stat.st_size
 
-        elif self.local_state.type == "dir":
-            stat = self.local_path.stat()
-            self.local_state.modified = datetime.fromtimestamp(stat.st_mtime)
-
+        self.local_state.modified = datetime.fromtimestamp(stat.st_mtime)
         return self.local_state
 
     def calc_cloud_state(self) -> ItemState:

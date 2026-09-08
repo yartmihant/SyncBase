@@ -7,6 +7,7 @@ from typing import Optional
 
 PROGRESS_BAR_FILESIZE = 1024 * 1024
 CHUNK_SIZE = 64 * 1024
+TEMP_UPLOAD_SUFFIX = ".tmp"
 
 _SIZE_UNITS = ["B", "KB", "MB", "GB", "TB"]
 
@@ -195,7 +196,7 @@ class YandexDiskClient:
         return None
 
     def list(self, cloud_path: str | Path, limit: int = 10000):
-        """Получить полный список файлов и папок с автоматической пагинацией."""
+        """Получить полный список; при ошибке не возвращать неполное дерево."""
         cloud_path = self._normalize_path(cloud_path)
 
         all_items = []
@@ -205,8 +206,11 @@ class YandexDiskClient:
         while True:
             params = {"path": cloud_path, "limit": page_limit, "offset": offset}
             response = self._make_request("GET", "/", params=params)
-            if not response or response.status_code != 200:
-                break
+            if response is not None and response.status_code == 404 and offset == 0:
+                return []
+            if response is None or response.status_code != 200:
+                status = response.status_code if response is not None else "нет ответа"
+                raise RuntimeError(f"Не удалось получить список {cloud_path}: {status}")
 
             data = response.json()
             embedded = data.get("_embedded", {})
@@ -345,13 +349,17 @@ class YandexDiskClient:
                     print(f"❌ Не удалось создать папку: {cloud_path_parent}")
                     return False
 
-        tmp_cloud_path = cloud_path.as_posix() + ".tmp"
+        tmp_cloud_path = cloud_path.as_posix() + TEMP_UPLOAD_SUFFIX
         start_time = time.time()
 
         try:
             success = self._upload_file_with_progress(local_path, tmp_cloud_path, overwrite, create_parent=False)
             if not success:
                 print(f"❌ Ошибка загрузки файла {tmp_cloud_path}")
+                try:
+                    self.remove(tmp_cloud_path)
+                except Exception:
+                    pass
                 return False
 
             upload_time = time.time() - start_time
